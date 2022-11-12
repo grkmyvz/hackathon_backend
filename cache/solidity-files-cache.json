@@ -1,0 +1,110 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_COMPETENCE.sol": {
+      "lastModificationDate": 1668240541267,
+      "contentHash": "f21b6915017e99fdb7451709b3f1186e",
+      "sourceName": "contracts/EKAPB_COMPETENCE.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "EKAPB_COMPETENCE"
+      ]
+    },
+    "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_MAIN.sol": {
+      "lastModificationDate": 1668236992660,
+      "contentHash": "0efabe813d475cb00860ecdb4ed5ccec",
+      "sourceName": "contracts/EKAPB_MAIN.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "EKAPB_MAIN"
+      ]
+    },
+    "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_SUB.sol": {
+      "lastModificationDate": 1668237013062,
+      "contentHash": "ce49d10ef1517bc6e6fbec1ea6213b56",
+      "sourceName": "contracts/EKAPB_SUB.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "EKAPB_SUB"
+      ]
+    }
+  }
+}

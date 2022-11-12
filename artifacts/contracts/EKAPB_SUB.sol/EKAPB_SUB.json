@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "EKAPB_SUB",
+  "sourceName": "contracts/EKAPB_SUB.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122004ca775c9eed13c3bfd37ecd6206336920042d5ef667b4aa0f05dac086462b7664736f6c63430008040033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122004ca775c9eed13c3bfd37ecd6206336920042d5ef667b4aa0f05dac086462b7664736f6c63430008040033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
