@@ -30,7 +30,7 @@ contract EKAPB_SUB {
     mapping(address => bool) bidderControl;
 
     // Bidder address to info struct
-    mapping(address => BidderInfo) bidderInfo;
+    mapping(address => BidderInfo) biddersInfo;
 
     // Competence ID to control bool
     mapping(uint256 => bool) competenceControl;
@@ -95,15 +95,20 @@ contract EKAPB_SUB {
     }
 
     function getBidderInfo(address _address) public view returns(BidderInfo memory) {
-        return bidderInfo[_address];
+        return biddersInfo[_address];
     }
 
     function getCompetenceControl(uint256 _competenceID) public view returns(bool) {
         return competenceControl[_competenceID];
     }
 
-    function setOffer(bytes32 _offerSha256) public onlyCompetence() {
-        
+    function setOffer(string memory _bidIPFSLink, bytes32 _offerSha256) public onlyCompetence() {
+        BidderInfo memory bidderInfo;
+        bidderInfo.bidIPFSLink = _bidIPFSLink;
+        bidderInfo.offerSha256 = _offerSha256;
+        biddersInfo[msg.sender] = bidderInfo;
+        bidders.push(msg.sender);
+        bidderControl[msg.sender] = true;
     }
     
 }
