@@ -52,70 +52,84 @@ describe("Test hesaplarının oluşturulması", function () {
 
     });
 
-    describe("Ana kontrat testleri", function() {
+    describe("Ana kontrat testleri", function () {
 
-        it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function() {
+        it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function () {
             console.log("kamuKurumu1 ihale oluşturabilir mi? ==> " + await mainC.connect(misafir1).getAuthorized(kamuKurumu1.address));
         });
 
-        it("setAuthorized (Alt kontrat oluşturabilme yetkinliği ekleme)", async function() {
+        it("setAuthorized (Alt kontrat oluşturabilme yetkinliği ekleme)", async function () {
             await mainC.connect(devlet).setAuthorized(kamuKurumu1.address);
         });
 
-        it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function() {
+        it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function () {
             console.log("kamuKurumu1 ihale oluşturabilir mi? ==> " + await mainC.connect(misafir1).getAuthorized(kamuKurumu1.address));
         });
 
-        it("createTender (Alt kontrat oluşturma)", async function() {
-            let tenderDetail = "bafkreiaxvkt7kpqik64b2mugrzkhagpa6npz5lbutnrntehd2mmrfvnyum"
-            let tenderPublicKey = "vFwh6VQipA"
-            await mainC.connect(kamuKurumu1).createTender(tenderDetail, tenderPublicKey, [123, 456, 789]);
+        it("createTender (Alt kontrat oluşturma)", async function () {
+            tenderDetail = "bafkreiaxvkt7kpqik64b2mugrzkhagpa6npz5lbutnrntehd2mmrfvnyum"
+            tenderPublicKey = "vFwh6VQipA"
+            await mainC.connect(kamuKurumu1).createTender(tenderDetail, tenderPublicKey, [123, 456, 789], competenceC.address);
         });
 
-        it("getSubContract (Alt kontrat adresi sorgulama)", async function() {
+        it("getSubContract (Alt kontrat adresi sorgulama)", async function () {
             lastSubContractAddress = await mainC.connect(misafir1).getSubContract(0);
             console.log("Alt kontat adress bilgisi ==> " + lastSubContractAddress);
         });
 
     });
 
-    describe("Alt kontrat testleri", function() {
+    describe("Alt kontrat testleri", function () {
 
-        before("Alt kontrata bağlanma", async function() {
+        before("Alt kontrata bağlanma", async function () {
             subC = await subContract.attach(lastSubContractAddress);
         });
 
-        it("getTenderDetail (Alt kontrat detay linkini sorgulama)", async function() {
+        it("getTenderDetail (Alt kontrat detay linkini sorgulama)", async function () {
             console.log("Alt kontrat detay IPFS linki ==> " + await subC.connect(misafir1).getTenderDetail());
         });
 
-        it("getTenderPublicKey (Alt kontrat public key sorgulama)", async function() {
+        it("getTenderPublicKey (Alt kontrat public key sorgulama)", async function () {
             console.log("Alt kontrat public key ==> " + await subC.connect(misafir1).getTenderPublicKey());
         });
 
-        it("getTenderStatus (Alt kontrat durumunu sorgulama)", async function() {
+        it("getTenderStatus (Alt kontrat durumunu sorgulama)", async function () {
             console.log("Alt kontrat durumu ==> " + await subC.connect(misafir1).getTenderStatus());
         });
 
-        it("getCompetenceCount (Alt kontrat teklif verebilecek yetkinlik sayısı sorgulama)", async function() {
+        it("getCompetenceCount (Alt kontrat teklif verebilecek yetkinlik sayısı sorgulama)", async function () {
             competenceCount = await subC.connect(misafir1).getCompetenceCount();
             console.log("Alt kontrat teklif verebilecek yetkinlik sayısı ==> " + competenceCount);
         });
 
-        it("getCompetenceID (Alt kontrat teklif verebilecek yetkinlik idlerini sorgulama)", async function() {
+        it("getCompetenceID (Alt kontrat teklif verebilecek yetkinlik idlerini sorgulama)", async function () {
             competenceIDs = [];
-            for(i = 0; i < Number(competenceCount); i++) {
+            for (i = 0; i < Number(competenceCount); i++) {
                 competenceID = await subC.connect(misafir1).getCompetenceID(i);
                 competenceIDs.push(competenceID);
             }
             console.log("Alt kontrat teklif verebilecek yetkinlik idleri ==> " + competenceIDs);
         });
 
-        it("getBidderCount (Alt kontrat teklif veren sayısı sorgulama)", async function() {
+        it("getBidderCount (Alt kontrat teklif veren sayısı sorgulama)", async function () {
             bidderCount = await subC.connect(misafir1).getBidderCount();
             console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
         });
 
+        it("setOffer (Alt kontrat teklif verme)", async function () {
+            bidIPFSLink = "bafkreicjmxc2drbgxtoidx6xfatbffyx46oiyo6ktipss6dhdermwtsoze"
+            bidderPrivateKey = "J4J0kifK1k";
+            bidderOffer = 12500;
+            createBytes32 = ethers.utils.formatBytes32String(tenderPublicKey + bidderPrivateKey + bidderOffer);
+            createSha256 = ethers.utils.sha256(createBytes32);
+            await subC.connect(misafir1).getOffer(bidIPFSLink, createSha256);
+            console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
+        });
+        /*
+                it("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function() {
+                    console.log("Alt kontrat teklif veren sayısı ==> " + await subC.connect(misafir1).getBidderInfo(););
+                });
+        */
     });
 
 

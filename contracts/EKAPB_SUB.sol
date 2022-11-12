@@ -4,7 +4,6 @@ pragma solidity ^0.8.4;
 import "./EKAPB_COMPETENCE.sol";
 
 contract EKAPB_SUB {
-
     EKAPB_COMPETENCE competenceContract;
 
     struct BidderInfo {
@@ -42,8 +41,13 @@ contract EKAPB_SUB {
 
     modifier onlyCompetence() {
         bool checkControl;
-        for(uint256 i = 0; i < competenceIDs.length; i++) {
-            if(competenceContract.getCompetence(msg.sender, competenceIDs[i]) == true) {
+        for (uint256 i = 0; i < competenceIDs.length; i++) {
+            if (
+                competenceContract.getCompetence(
+                    msg.sender,
+                    competenceIDs[i]
+                ) == true
+            ) {
                 checkControl = true;
             }
         }
@@ -51,10 +55,15 @@ contract EKAPB_SUB {
         _;
     }
 
-    constructor(string memory _tenderDetail, string memory _tenderPublicKey, uint256[] memory _competenceIDs, address _competenceAddress) {
+    constructor(
+        string memory _tenderDetail,
+        string memory _tenderPublicKey,
+        uint256[] memory _competenceIDs,
+        address _competenceAddress
+    ) {
         tenderDetail = _tenderDetail;
         tenderPublicKey = _tenderPublicKey;
-        for(uint256 i; i < _competenceIDs.length; i++) {
+        for (uint256 i; i < _competenceIDs.length; i++) {
             competenceIDs.push(_competenceIDs[i]);
             competenceControl[i] = true;
         }
@@ -62,47 +71,58 @@ contract EKAPB_SUB {
         creator = msg.sender;
     }
 
-    function getTenderDetail() public view returns(string memory) {
+    function getTenderDetail() public view returns (string memory) {
         return tenderDetail;
     }
 
-    function getTenderPublicKey() public view returns(string memory) {
+    function getTenderPublicKey() public view returns (string memory) {
         return tenderPublicKey;
     }
 
-    function getTenderStatus() public view returns(bool) {
+    function getTenderStatus() public view returns (bool) {
         return tenderStatus;
     }
 
-    function getCompetenceCount() public view returns(uint256) {
+    function getCompetenceCount() public view returns (uint256) {
         return competenceIDs.length;
     }
-    
-    function getCompetenceID(uint256 _index) public view returns(uint256) {
+
+    function getCompetenceID(uint256 _index) public view returns (uint256) {
         return competenceIDs[_index];
     }
 
-    function getBidderCount() public view returns(uint256) {
+    function getBidderCount() public view returns (uint256) {
         return bidders.length;
     }
 
-    function getBidder(uint256 _index) public view returns(address) {
+    function getBidder(uint256 _index) public view returns (address) {
         return bidders[_index];
     }
 
-    function getBidderControl(address _address) public view returns(bool) {
+    function getBidderControl(address _address) public view returns (bool) {
         return bidderControl[_address];
     }
 
-    function getBidderInfo(address _address) public view returns(BidderInfo memory) {
+    function getBidderInfo(address _address)
+        public
+        view
+        returns (BidderInfo memory)
+    {
         return biddersInfo[_address];
     }
 
-    function getCompetenceControl(uint256 _competenceID) public view returns(bool) {
+    function getCompetenceControl(uint256 _competenceID)
+        public
+        view
+        returns (bool)
+    {
         return competenceControl[_competenceID];
     }
 
-    function setOffer(string memory _bidIPFSLink, bytes32 _offerSha256) public onlyCompetence() {
+    function setOffer(string memory _bidIPFSLink, bytes32 _offerSha256)
+        public
+        onlyCompetence
+    {
         BidderInfo memory bidderInfo;
         bidderInfo.bidIPFSLink = _bidIPFSLink;
         bidderInfo.offerSha256 = _offerSha256;
@@ -110,5 +130,4 @@ contract EKAPB_SUB {
         bidders.push(msg.sender);
         bidderControl[msg.sender] = true;
     }
-    
 }
