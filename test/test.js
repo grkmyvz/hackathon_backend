@@ -97,6 +97,25 @@ describe("Test hesaplarının oluşturulması", function () {
             console.log("Alt kontrat durumu ==> " + await subC.connect(misafir1).getTenderStatus());
         });
 
+        it("getCompetenceCount (Alt kontrat teklif verebilecek yetkinlik sayısı sorgulama)", async function() {
+            competenceCount = await subC.connect(misafir1).getCompetenceCount();
+            console.log("Alt kontrat teklif verebilecek yetkinlik sayısı ==> " + competenceCount);
+        });
+
+        it("getCompetenceID (Alt kontrat teklif verebilecek yetkinlik idlerini sorgulama)", async function() {
+            competenceIDs = [];
+            for(i = 0; i < Number(competenceCount); i++) {
+                competenceID = await subC.connect(misafir1).getCompetenceID(i);
+                competenceIDs.push(competenceID);
+            }
+            console.log("Alt kontrat teklif verebilecek yetkinlik idleri ==> " + competenceIDs);
+        });
+
+        it("getBidderCount (Alt kontrat teklif veren sayısı sorgulama)", async function() {
+            bidderCount = await subC.connect(misafir1).getBidderCount();
+            console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
+        });
+
     });
 
 

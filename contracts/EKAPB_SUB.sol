@@ -5,8 +5,10 @@ import "./EKAPB_COMPETENCE.sol";
 
 contract EKAPB_SUB {
 
+    EKAPB_COMPETENCE competenceContract;
+
     struct BidderInfo {
-        bytes32 bidIPFSLink;
+        string bidIPFSLink;
         bytes32 offerSha256;
         bytes32 bidderPrivateKey;
         uint256 offer;
@@ -38,13 +40,21 @@ contract EKAPB_SUB {
         _;
     }
 
-    constructor(string memory _tenderDetail, string memory _tenderPublicKey, uint256[] memory _competenceIDs) {
+    modifier onlyCompetence() {
+        //bool private 
+        for(uint256 i = 0; i < competenceIDs.length; i++) {
+            competenceContract.getCompetence(msg.sender, competenceIDs[i]);
+        }
+    }
+
+    constructor(string memory _tenderDetail, string memory _tenderPublicKey, uint256[] memory _competenceIDs, address _competenceAddress) {
         tenderDetail = _tenderDetail;
         tenderPublicKey = _tenderPublicKey;
         for(uint256 i; i < _competenceIDs.length; i++) {
             competenceIDs.push(_competenceIDs[i]);
             competenceControl[i] = true;
         }
+        competenceContract = EKAPB_COMPETENCE(_competenceAddress);
         creator = msg.sender;
     }
 
@@ -86,6 +96,10 @@ contract EKAPB_SUB {
 
     function getCompetenceControl(uint256 _competenceID) public view returns(bool) {
         return competenceControl[_competenceID];
+    }
+
+    function setOffer(bytes32 _offerSha256) public {
+
     }
     
 }
