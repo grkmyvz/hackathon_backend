@@ -33,7 +33,11 @@ contract EKAPB_MAIN {
         authorizedInstitutions[_address] = true;
     }
 
-    function createTender(bytes32 _tenderDetail, bytes32 _tenderPublicKey, uint256[] memory _competenceIDs) public {
+    function getSubContract(uint256 _index) public view returns(EKAPB_SUB) {
+        return subContracts[_index];
+    }
+
+    function createTender(string memory _tenderDetail, string memory _tenderPublicKey, uint256[] memory _competenceIDs) public onlyAuthorized() {
         EKAPB_SUB account = new EKAPB_SUB(_tenderDetail, _tenderPublicKey, _competenceIDs);
         subContracts.push(account);
     }

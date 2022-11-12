@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_COMPETENCE.sol": {
-      "lastModificationDate": 1668240541267,
-      "contentHash": "f21b6915017e99fdb7451709b3f1186e",
+      "lastModificationDate": 1668244348748,
+      "contentHash": "06654675175ffab13781ebc7447b4b53",
       "sourceName": "contracts/EKAPB_COMPETENCE.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -37,8 +37,8 @@
       ]
     },
     "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_MAIN.sol": {
-      "lastModificationDate": 1668236992660,
-      "contentHash": "0efabe813d475cb00860ecdb4ed5ccec",
+      "lastModificationDate": 1668253112647,
+      "contentHash": "748d86528134522b13d3aa916a8ba703",
       "sourceName": "contracts/EKAPB_MAIN.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -63,7 +63,9 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "./EKAPB_SUB.sol"
+      ],
       "versionPragmas": [
         "^0.8.4"
       ],
@@ -72,8 +74,8 @@
       ]
     },
     "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_SUB.sol": {
-      "lastModificationDate": 1668237013062,
-      "contentHash": "ce49d10ef1517bc6e6fbec1ea6213b56",
+      "lastModificationDate": 1668252692149,
+      "contentHash": "711d1fb75b76b2804f85a5f3a38fc1b1",
       "sourceName": "contracts/EKAPB_SUB.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -98,7 +100,9 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "./EKAPB_COMPETENCE.sol"
+      ],
       "versionPragmas": [
         "^0.8.4"
       ],

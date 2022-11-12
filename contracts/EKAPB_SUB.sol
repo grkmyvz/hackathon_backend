@@ -14,8 +14,8 @@ contract EKAPB_SUB {
 
     address private creator;
 
-    bytes32 private tenderDetail;
-    bytes32 private tenderPublicKey;
+    string private tenderDetail;
+    string private tenderPublicKey;
 
     bool private bidStart;
     bool private bidStop;
@@ -38,7 +38,7 @@ contract EKAPB_SUB {
         _;
     }
 
-    constructor(bytes32 _tenderDetail, bytes32 _tenderPublicKey, uint256[] memory _competenceIDs) {
+    constructor(string memory _tenderDetail, string memory _tenderPublicKey, uint256[] memory _competenceIDs) {
         tenderDetail = _tenderDetail;
         tenderPublicKey = _tenderPublicKey;
         for(uint256 i; i < _competenceIDs.length; i++) {
@@ -48,11 +48,11 @@ contract EKAPB_SUB {
         creator = msg.sender;
     }
 
-    function getTenderDetail() public view returns(bytes32) {
+    function getTenderDetail() public view returns(string memory) {
         return tenderDetail;
     }
 
-    function getTenderPublicKey() public view returns(bytes32) {
+    function getTenderPublicKey() public view returns(string memory) {
         return tenderPublicKey;
     }
 

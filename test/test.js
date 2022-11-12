@@ -14,6 +14,9 @@ describe("Test hesaplarının oluşturulması", function () {
         competenceContract = await ethers.getContractFactory("EKAPB_COMPETENCE");
         competenceC = await competenceContract.connect(devlet).deploy();
 
+        mainContract = await ethers.getContractFactory("EKAPB_MAIN");
+        mainC = await mainContract.connect(devlet).deploy();
+
     });
 
     it("Hesapların ve kontratların oluşturulup oluşturulmadığı kontrolü", async function () {
@@ -28,20 +31,48 @@ describe("Test hesaplarının oluşturulması", function () {
         expect(misafir2.address).to.not.be.undefined;
 
         expect(competenceC.address).to.not.be.undefined;
+
+        expect(mainC.address).to.not.be.undefined;
     });
 
     describe("Yetkinlik kontratı testleri", function () {
 
-        it("getCompetence", async function () {
+        it("getCompetence (Firmanın yetkinliği olan alanlarını sorgulama)", async function () {
             console.log("firma1 kullanıcısının '123' numaralı yetkinliği var mı? ==> " + await competenceC.connect(misafir1).getCompetence(firma1.address, 123));
         });
 
-        it("setCompetence", async function () {
+        it("setCompetence (Firmanın yetkinliği olan alanını ekleme)", async function () {
             await competenceC.connect(devlet).setCompetence(firma1.address, 123);
         });
 
-        it("getCompetence", async function () {
+        it("getCompetence (Firmanın yetkinliği olan alanlarını sorgulama)", async function () {
             console.log("firma1 kullanıcısının '123' numaralı yetkinliği var mı? ==> " + await competenceC.connect(misafir1).getCompetence(firma1.address, 123));
+        });
+
+    });
+
+    describe("Ana kontrat testleri", function() {
+
+        it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function() {
+            console.log("kamuKurumu1 ihale oluşturabilir mi? ==> " + await mainC.connect(misafir1).getAuthorized(kamuKurumu1.address));
+        });
+
+        it("setAuthorized (Alt kontrat oluşturabilme yetkinliği ekleme)", async function() {
+            await mainC.connect(devlet).setAuthorized(kamuKurumu1.address);
+        });
+
+        it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function() {
+            console.log("kamuKurumu1 ihale oluşturabilir mi? ==> " + await mainC.connect(misafir1).getAuthorized(kamuKurumu1.address));
+        });
+
+        it("createTender (Alt kontrat oluşturma)", async function() {
+            let tenderDetail = "bafkreiaxvkt7kpqik64b2mugrzkhagpa6npz5lbutnrntehd2mmrfvnyum"
+            let tenderPublicKey = "vFwh6VQipA"
+            await mainC.connect(kamuKurumu1).createTender(tenderDetail, tenderPublicKey, [123, 456, 789]);
+        });
+
+        it("getSubContract (Alt kontrat adresi sorgulama)", async function() {
+            console.log("Alt kontat adress bilgisi ==> " + await mainC.connect(misafir1).getSubContract(0));
         });
 
     });
