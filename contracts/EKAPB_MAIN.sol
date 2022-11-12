@@ -32,10 +32,10 @@ contract EKAPB_MAIN {
     function setAuthorized(address _address) public onlyOwner {
         authorizedInstitutions[_address] = true;
     }
-/*
-    function createTender() public {
-        EKAPB_SUB account = new EKAPB_SUB();
+
+    function createTender(bytes32 _tenderDetail, bytes32 _tenderPublicKey, uint256[] memory _competenceIDs) public {
+        EKAPB_SUB account = new EKAPB_SUB(_tenderDetail, _tenderPublicKey, _competenceIDs);
         subContracts.push(account);
     }
-*/
+
 }
