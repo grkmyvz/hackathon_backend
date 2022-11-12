@@ -21,7 +21,7 @@ contract EKAPB_SUB {
 
     bool private bidStart;
     bool private bidStop;
-    bool private tenderStatus;
+    bool private tenderStatus = true;
 
     uint256[] competenceIDs;
     address[] bidders;
@@ -177,5 +177,6 @@ contract EKAPB_SUB {
             "Bu adres ihale bilgilerini acmadi."
         );
         winnerAddress = _address;
+        tenderStatus = false;
     }
 }

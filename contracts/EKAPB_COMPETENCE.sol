@@ -30,4 +30,11 @@ contract EKAPB_COMPETENCE {
     {
         competence[_address][_competenceID] = true;
     }
+
+    function deleteCompetence(address _address, uint256 _competenceID)
+        public
+        onlyOwner
+    {
+        competence[_address][_competenceID] = false;
+    }
 }

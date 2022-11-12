@@ -35,6 +35,14 @@ contract EKAPB_MAIN {
         authorizedInstitutions[_address] = true;
     }
 
+    function deleteAuthorized(address _address) public onlyOwner {
+        authorizedInstitutions[_address] = false;
+    }
+
+    function getSubContractCount() public view returns(uint256) {
+        return subContracts.length;
+    }
+
     function getSubContract(uint256 _index) public view returns (EKAPB_SUB) {
         return subContracts[_index];
     }
