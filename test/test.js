@@ -6,9 +6,8 @@ const provider = ethers.provider;
 describe("Test hesaplarının oluşturulması", function () {
 
     let devlet, kamuKurumu1, kamuKurumu2, kamuKurumu3, firma1, firma2, firma3, misafir1, misafir2;
-    let competenceC;
 
-    before(async function () {
+    before("Hesapların oluşturulması, kontratların deploy edilmesi", async function () {
         [devlet, kamuKurumu1, kamuKurumu2, kamuKurumu3, firma1, firma2, firma3, misafir1, misafir2] = await ethers.getSigners();
 
         competenceContract = await ethers.getContractFactory("EKAPB_COMPETENCE");
@@ -16,6 +15,8 @@ describe("Test hesaplarının oluşturulması", function () {
 
         mainContract = await ethers.getContractFactory("EKAPB_MAIN");
         mainC = await mainContract.connect(devlet).deploy();
+
+        subContract = await ethers.getContractFactory("EKAPB_SUB");
 
     });
 
@@ -72,7 +73,28 @@ describe("Test hesaplarının oluşturulması", function () {
         });
 
         it("getSubContract (Alt kontrat adresi sorgulama)", async function() {
-            console.log("Alt kontat adress bilgisi ==> " + await mainC.connect(misafir1).getSubContract(0));
+            lastSubContractAddress = await mainC.connect(misafir1).getSubContract(0);
+            console.log("Alt kontat adress bilgisi ==> " + lastSubContractAddress);
+        });
+
+    });
+
+    describe("Alt kontrat testleri", function() {
+
+        before("Alt kontrata bağlanma", async function() {
+            subC = await subContract.attach(lastSubContractAddress);
+        });
+
+        it("getTenderDetail (Alt kontrat detay linkini sorgulama)", async function() {
+            console.log("Alt kontrat detay IPFS linki ==> " + await subC.connect(misafir1).getTenderDetail());
+        });
+
+        it("getTenderPublicKey (Alt kontrat public key sorgulama)", async function() {
+            console.log("Alt kontrat public key ==> " + await subC.connect(misafir1).getTenderPublicKey());
+        });
+
+        it("getTenderStatus (Alt kontrat durumunu sorgulama)", async function() {
+            console.log("Alt kontrat durumu ==> " + await subC.connect(misafir1).getTenderStatus());
         });
 
     });
