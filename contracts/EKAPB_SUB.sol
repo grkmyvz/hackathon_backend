@@ -59,7 +59,8 @@ contract EKAPB_SUB {
         string memory _tenderDetail,
         string memory _tenderPublicKey,
         uint256[] memory _competenceIDs,
-        address _competenceAddress
+        address _competenceAddress,
+        address _creator
     ) {
         tenderDetail = _tenderDetail;
         tenderPublicKey = _tenderPublicKey;
@@ -68,7 +69,7 @@ contract EKAPB_SUB {
             competenceControl[i] = true;
         }
         competenceContract = EKAPB_COMPETENCE(_competenceAddress);
-        creator = msg.sender;
+        creator = _creator;
     }
 
     function getTenderDetail() public view returns (string memory) {
@@ -119,12 +120,20 @@ contract EKAPB_SUB {
         return competenceControl[_competenceID];
     }
 
+    function setBidStart() public onlyOwner() {
+        bidStart = true;
+    }
+
+    function setBidStop() public onlyOwner() {
+        bidStop = true;
+    }
+
     function setOffer(string memory _bidIPFSLink, bytes32 _offerSha256)
         public
         onlyCompetence
     {
         require(bidStart, "Ihaleye teklif verme suan kapali.");
-        require(bidStop, "Ihaleye teklif verme kapatildi.");
+        require(!bidStop, "Ihaleye teklif verme kapatildi.");
         require(bidderControl[msg.sender], "Bu ihaleye zaten teklif verdiniz.");
         BidderInfo memory bidderInfo;
         bidderInfo.bidIPFSLink = _bidIPFSLink;
@@ -135,8 +144,8 @@ contract EKAPB_SUB {
     }
 
     function openOffer(bytes32 _bidderPrivateKey, uint256 _offer) public {
-        // require( , "Henuz gizli anahtarinizi ve teklifinizi aciklayamazsiniz.");
-        // require( , "Bu islemi daha onceden yaptınız.");
+        require(bidStop, "Henuz gizli anahtarinizi ve teklifinizi aciklayamazsiniz.");
+        require(biddersInfo[msg.sender].offer > 0 && biddersInfo[msg.sender].bidderPrivateKey != 0x0000000000000000000000000000000000000000000000000000000000000000, "Bu islemi daha onceden yaptiniz.");
         require(bidderControl[msg.sender], "Bu ihaleye teklif yapmadiniz.");
         BidderInfo storage bidderInfo = biddersInfo[msg.sender];
         bidderInfo.bidderPrivateKey = _bidderPrivateKey;

@@ -37,8 +37,8 @@
       ]
     },
     "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_MAIN.sol": {
-      "lastModificationDate": 1668263307540,
-      "contentHash": "f4da6d88c678049843316e45b21ea693",
+      "lastModificationDate": 1668270756802,
+      "contentHash": "268ebd17cf7b5b0187275e985959f07d",
       "sourceName": "contracts/EKAPB_MAIN.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -74,8 +74,8 @@
       ]
     },
     "C:\\Users\\Gorkem\\Desktop\\hackathon\\contracts\\EKAPB_SUB.sol": {
-      "lastModificationDate": 1668267338736,
-      "contentHash": "4fe4fcd06a1ea5bf0e7ef081ab1ba071",
+      "lastModificationDate": 1668270959826,
+      "contentHash": "90ff47680fe58c0e2a3b6495f948252f",
       "sourceName": "contracts/EKAPB_SUB.sol",
       "solcConfig": {
         "version": "0.8.4",

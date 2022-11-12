@@ -49,7 +49,8 @@ contract EKAPB_MAIN {
             _tenderDetail,
             _tenderPublicKey,
             _competenceIDs,
-            _competenceAddress
+            _competenceAddress,
+            msg.sender
         );
         subContracts.push(account);
     }

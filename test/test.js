@@ -60,6 +60,7 @@ describe("Test hesaplarının oluşturulması", function () {
 
         it("setAuthorized (Alt kontrat oluşturabilme yetkinliği ekleme)", async function () {
             await mainC.connect(devlet).setAuthorized(kamuKurumu1.address);
+            await mainC.connect(devlet).setAuthorized(kamuKurumu2.address);
         });
 
         it("getAuthorized (Alt kontrat oluşturabilme yetkinliği sorgulama)", async function () {
@@ -114,6 +115,10 @@ describe("Test hesaplarının oluşturulması", function () {
         it("getBidderCount (Alt kontrat teklif veren sayısı sorgulama)", async function () {
             bidderCount = await subC.connect(misafir1).getBidderCount();
             console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
+        });
+
+        it("setBidStart (Alt kontrat teklif vermeyi başlat)", async function () {
+            await subC.connect(kamuKurumu1).setBidStart();
         });
 
         it("setOffer (Alt kontrat teklif verme)", async function () {
