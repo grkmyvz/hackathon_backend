@@ -129,11 +129,20 @@ describe("Test hesaplarının oluşturulması", function () {
             createSha256 = ethers.utils.sha256(createBytes32);
             await subC.connect(firma1).setOffer(bidIPFSLink, createSha256);
         });
-        
-        it("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function() {
-            console.log("Alt kontrat teklif veren sayısı ==> " + await subC.connect(misafir1).getBidderInfo(firma1.address));
+
+        it("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function () {
+            console.log("Alt kontrat teklif veren bilgisi ==> " + await subC.connect(misafir1).getBidderInfo(firma1.address));
         });
-    
+
+        it("getBidderCount (Alt kontrat teklif veren sayısı sorgulama)", async function () {
+            bidderCount = await subC.connect(misafir1).getBidderCount();
+            console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
+        });
+
+        it("openOffer (Alt kontrat teklif veren şifre açma)", async function () {
+            await subC.connect(misafir1).openOffer();
+        });
+
     });
 
 
