@@ -41,10 +41,14 @@ contract EKAPB_SUB {
     }
 
     modifier onlyCompetence() {
-        //bool private 
+        bool checkControl;
         for(uint256 i = 0; i < competenceIDs.length; i++) {
-            competenceContract.getCompetence(msg.sender, competenceIDs[i]);
+            if(competenceContract.getCompetence(msg.sender, competenceIDs[i]) == true) {
+                checkControl = true;
+            }
         }
+        require(checkControl == true, "Bu yetkiye sahip degilsiniz.");
+        _;
     }
 
     constructor(string memory _tenderDetail, string memory _tenderPublicKey, uint256[] memory _competenceIDs, address _competenceAddress) {
@@ -98,8 +102,8 @@ contract EKAPB_SUB {
         return competenceControl[_competenceID];
     }
 
-    function setOffer(bytes32 _offerSha256) public {
-
+    function setOffer(bytes32 _offerSha256) public onlyCompetence() {
+        
     }
     
 }
