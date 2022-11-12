@@ -122,14 +122,13 @@ describe("Test hesaplarının oluşturulması", function () {
             bidderOffer = 12500;
             createBytes32 = ethers.utils.formatBytes32String(tenderPublicKey + bidderPrivateKey + bidderOffer);
             createSha256 = ethers.utils.sha256(createBytes32);
-            await subC.connect(misafir1).getOffer(bidIPFSLink, createSha256);
-            console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
+            await subC.connect(firma1).setOffer(bidIPFSLink, createSha256);
         });
-        /*
-                it("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function() {
-                    console.log("Alt kontrat teklif veren sayısı ==> " + await subC.connect(misafir1).getBidderInfo(););
-                });
-        */
+        
+        it("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function() {
+            console.log("Alt kontrat teklif veren sayısı ==> " + await subC.connect(misafir1).getBidderInfo(firma1.address));
+        });
+    
     });
 
 

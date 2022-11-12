@@ -123,11 +123,23 @@ contract EKAPB_SUB {
         public
         onlyCompetence
     {
+        require(bidStart, "Ihaleye teklif verme suan kapali.");
+        require(bidStop, "Ihaleye teklif verme kapatildi.");
+        require(bidderControl[msg.sender], "Bu ihaleye zaten teklif verdiniz.");
         BidderInfo memory bidderInfo;
         bidderInfo.bidIPFSLink = _bidIPFSLink;
         bidderInfo.offerSha256 = _offerSha256;
         biddersInfo[msg.sender] = bidderInfo;
         bidders.push(msg.sender);
         bidderControl[msg.sender] = true;
+    }
+
+    function openOffer(bytes32 _bidderPrivateKey, uint256 _offer) public {
+        // require( , "Henuz gizli anahtarinizi ve teklifinizi aciklayamazsiniz.");
+        // require( , "Bu islemi daha onceden yaptınız.");
+        require(bidderControl[msg.sender], "Bu ihaleye teklif yapmadiniz.");
+        BidderInfo storage bidderInfo = biddersInfo[msg.sender];
+        bidderInfo.bidderPrivateKey = _bidderPrivateKey;
+        bidderInfo.offer = _offer;
     }
 }
