@@ -139,11 +139,39 @@ describe("Test hesaplarının oluşturulması", function () {
             console.log("Alt kontrat teklif veren sayısı ==> " + bidderCount);
         });
 
-        it("openOffer (Alt kontrat teklif veren şifre açma)", async function () {
-            await subC.connect(misafir1).openOffer();
-        });
-
     });
 
+    describe("İhale kapatma ve teklifleri açma", function () {
+        before("setBidStop (Alt kontrat teklif vermeyi durdur)", async function () {
+            await subC.connect(kamuKurumu1).setBidStop();
+        });
+
+        it("openOffer (Alt kontrat teklif veren şifre açma)", async function () {
+            createBidderPrivateKey = ethers.utils.formatBytes32String(bidderPrivateKey);
+            await subC.connect(firma1).openOffer(createBidderPrivateKey, bidderOffer);
+        });
+
+        after("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function () {
+            console.log("Alt kontrat teklif veren bilgisi ==> " + await subC.connect(misafir1).getBidderInfo(firma1.address));
+        });
+        
+    });
+/*
+    describe("Kazanan belirleme", function () {
+
+        before("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function () {
+            console.log("Alt kontrat teklif veren bilgisi ==> " + await subC.connect(misafir1).getBidderInfo(firma1.address));
+        });
+        
+        it("setWinnerAddress (Alt kontrat teklifi kazananı belirle)", async function () {
+            await subC.connect(kamuKurumu1).setWinnerAddress(firma1.address);
+        });
+        
+        it("getWinnerAddress (Alt kontrat teklifi kazananı sorgula)", async function () {
+            await subC.connect(misafir1).getWinnerAddress();
+        });
+        
+    });
+*/
 
 });

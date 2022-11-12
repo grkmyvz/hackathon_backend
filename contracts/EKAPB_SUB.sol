@@ -14,6 +14,7 @@ contract EKAPB_SUB {
     }
 
     address private creator;
+    address private winnerAddress;
 
     string private tenderDetail;
     string private tenderPublicKey;
@@ -120,6 +121,10 @@ contract EKAPB_SUB {
         return competenceControl[_competenceID];
     }
 
+    function getWinnerAddress() public view returns (address) {
+        return winnerAddress;
+    }
+
     function setBidStart() public onlyOwner {
         bidStart = true;
     }
@@ -153,13 +158,24 @@ contract EKAPB_SUB {
         );
         require(bidderControl[msg.sender], "Bu ihaleye teklif yapmadiniz.");
         require(
-            biddersInfo[msg.sender].offer > 0 &&
-                biddersInfo[msg.sender].bidderPrivateKey !=
+            biddersInfo[msg.sender].offer == 0 &&
+                biddersInfo[msg.sender].bidderPrivateKey ==
                 0x0000000000000000000000000000000000000000000000000000000000000000,
             "Bu islemi daha onceden yaptiniz."
         );
         BidderInfo storage bidderInfo = biddersInfo[msg.sender];
         bidderInfo.bidderPrivateKey = _bidderPrivateKey;
         bidderInfo.offer = _offer;
+    }
+
+    function setWinnerAddress(address _address) public onlyOwner {
+        require(bidderControl[_address], "Bu adres ihaleye katilmadi.");
+        require(
+            biddersInfo[msg.sender].offer > 0 &&
+                biddersInfo[msg.sender].bidderPrivateKey !=
+                0x0000000000000000000000000000000000000000000000000000000000000000,
+            "Bu adres ihale bilgilerini acmadi."
+        );
+        winnerAddress = _address;
     }
 }
