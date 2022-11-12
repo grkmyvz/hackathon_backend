@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 contract EKAPB_COMPETENCE {
-    address creator;
+    address private creator;
 
     // Address => Competence => True & False
     mapping(address => mapping(uint256 => bool)) competence;
