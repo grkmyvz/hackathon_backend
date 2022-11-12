@@ -120,11 +120,11 @@ contract EKAPB_SUB {
         return competenceControl[_competenceID];
     }
 
-    function setBidStart() public onlyOwner() {
+    function setBidStart() public onlyOwner {
         bidStart = true;
     }
 
-    function setBidStop() public onlyOwner() {
+    function setBidStop() public onlyOwner {
         bidStop = true;
     }
 
@@ -134,7 +134,10 @@ contract EKAPB_SUB {
     {
         require(bidStart, "Ihaleye teklif verme suan kapali.");
         require(!bidStop, "Ihaleye teklif verme kapatildi.");
-        require(bidderControl[msg.sender], "Bu ihaleye zaten teklif verdiniz.");
+        require(
+            !bidderControl[msg.sender],
+            "Bu ihaleye zaten teklif verdiniz."
+        );
         BidderInfo memory bidderInfo;
         bidderInfo.bidIPFSLink = _bidIPFSLink;
         bidderInfo.offerSha256 = _offerSha256;
@@ -144,9 +147,17 @@ contract EKAPB_SUB {
     }
 
     function openOffer(bytes32 _bidderPrivateKey, uint256 _offer) public {
-        require(bidStop, "Henuz gizli anahtarinizi ve teklifinizi aciklayamazsiniz.");
-        require(biddersInfo[msg.sender].offer > 0 && biddersInfo[msg.sender].bidderPrivateKey != 0x0000000000000000000000000000000000000000000000000000000000000000, "Bu islemi daha onceden yaptiniz.");
+        require(
+            bidStop,
+            "Henuz gizli anahtarinizi ve teklifinizi aciklayamazsiniz."
+        );
         require(bidderControl[msg.sender], "Bu ihaleye teklif yapmadiniz.");
+        require(
+            biddersInfo[msg.sender].offer > 0 &&
+                biddersInfo[msg.sender].bidderPrivateKey !=
+                0x0000000000000000000000000000000000000000000000000000000000000000,
+            "Bu islemi daha onceden yaptiniz."
+        );
         BidderInfo storage bidderInfo = biddersInfo[msg.sender];
         bidderInfo.bidderPrivateKey = _bidderPrivateKey;
         bidderInfo.offer = _offer;
