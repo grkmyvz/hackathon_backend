@@ -30,5 +30,21 @@ describe("Test hesaplarının oluşturulması", function () {
         expect(competenceC.address).to.not.be.undefined;
     });
 
+    describe("Yetkinlik kontratı testleri", function() {
+
+        it("getCompetence", async function() {
+            console.log("firma1 kullanıcısının '123' numaralı yetkinliği var mı? ==> " + await competenceC.connect(misafir1).getCompetence(firma1.address, 123));
+        });
+
+        it("setCompetence", async function() {
+            await competenceC.connect(devlet).setCompetence(firma1.address, 123);
+        });
+
+        it("getCompetence", async function() {
+            console.log("firma1 kullanıcısının '123' numaralı yetkinliği var mı? ==> " + await competenceC.connect(misafir1).getCompetence(firma1.address, 123));
+        });
+
+    });
+
 
 });
