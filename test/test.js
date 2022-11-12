@@ -156,7 +156,7 @@ describe("Test hesaplarının oluşturulması", function () {
         });
         
     });
-/*
+
     describe("Kazanan belirleme", function () {
 
         before("getBidderInfo (Alt kontrat teklif verenin teklif bilgisi sorgulama)", async function () {
@@ -166,12 +166,12 @@ describe("Test hesaplarının oluşturulması", function () {
         it("setWinnerAddress (Alt kontrat teklifi kazananı belirle)", async function () {
             await subC.connect(kamuKurumu1).setWinnerAddress(firma1.address);
         });
-        
+        /*
         it("getWinnerAddress (Alt kontrat teklifi kazananı sorgula)", async function () {
             await subC.connect(misafir1).getWinnerAddress();
         });
-        
+        */
     });
-*/
+
 
 });

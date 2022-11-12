@@ -171,8 +171,8 @@ contract EKAPB_SUB {
     function setWinnerAddress(address _address) public onlyOwner {
         require(bidderControl[_address], "Bu adres ihaleye katilmadi.");
         require(
-            biddersInfo[msg.sender].offer > 0 &&
-                biddersInfo[msg.sender].bidderPrivateKey !=
+            biddersInfo[_address].offer > 0 &&
+                biddersInfo[_address].bidderPrivateKey !=
                 0x0000000000000000000000000000000000000000000000000000000000000000,
             "Bu adres ihale bilgilerini acmadi."
         );
