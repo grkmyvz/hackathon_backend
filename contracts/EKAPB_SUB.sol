@@ -67,7 +67,7 @@ contract EKAPB_SUB {
         tenderPublicKey = _tenderPublicKey;
         for (uint256 i; i < _competenceIDs.length; i++) {
             competenceIDs.push(_competenceIDs[i]);
-            competenceControl[i] = true;
+            competenceControl[competenceIDs[i]] = true;
         }
         competenceContract = EKAPB_COMPETENCE(_competenceAddress);
         creator = _creator;
