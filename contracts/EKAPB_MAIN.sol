@@ -5,6 +5,7 @@ import "./EKAPB_SUB.sol";
 
 contract EKAPB_MAIN {
     address private creator;
+    address private competenceAddress;
 
     EKAPB_SUB[] subContracts;
 
@@ -47,17 +48,24 @@ contract EKAPB_MAIN {
         return subContracts[_index];
     }
 
+    function getCompetenceAddress() public view returns (address) {
+        return competenceAddress;
+    }
+
+    function setCompetenceAddress(address _address) public onlyOwner() {
+        competenceAddress = _address;
+    }
+
     function createTender(
         string memory _tenderDetail,
         string memory _tenderPublicKey,
-        uint256[] memory _competenceIDs,
-        address _competenceAddress
+        uint256[] memory _competenceIDs
     ) public onlyAuthorized {
         EKAPB_SUB account = new EKAPB_SUB(
             _tenderDetail,
             _tenderPublicKey,
             _competenceIDs,
-            _competenceAddress,
+            competenceAddress,
             msg.sender
         );
         subContracts.push(account);
