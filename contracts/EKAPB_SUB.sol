@@ -125,6 +125,14 @@ contract EKAPB_SUB {
         return winnerAddress;
     }
 
+    function getBidStart() public view returns (bool) {
+        return bidStart;
+    }
+
+    function getBidStop() public view returns (bool) {
+        return bidStop;
+    }
+
     function setBidStart() public onlyOwner {
         bidStart = true;
     }
