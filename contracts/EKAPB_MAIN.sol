@@ -40,7 +40,7 @@ contract EKAPB_MAIN {
         authorizedInstitutions[_address] = false;
     }
 
-    function getSubContractCount() public view returns(uint256) {
+    function getSubContractCount() public view returns (uint256) {
         return subContracts.length;
     }
 
@@ -52,7 +52,7 @@ contract EKAPB_MAIN {
         return competenceAddress;
     }
 
-    function setCompetenceAddress(address _address) public onlyOwner() {
+    function setCompetenceAddress(address _address) public onlyOwner {
         competenceAddress = _address;
     }
 
